@@ -47,8 +47,8 @@ set_encodings("utf-8")
 set_license("GPL-2.0")
 set_rundir(".")
 add_defines("CXX11_OVERRIDE=override")
-set_configdir("$(buildir)/config")
-add_includedirs("$(buildir)/config")
+set_configdir("$(builddir)/config")
+add_includedirs("$(builddir)/config")
 if is_plat("windows") then
     add_cxxflags("/EHsc")
 end
@@ -234,13 +234,16 @@ local sourceDirs = {
     "src/util",
 }
 
+includes("merge_staticlib.lua")
+
 target("aria2")
     set_kind("$(kind)")
+    add_rules("merge_staticlib")
     add_files("deps/wslay/lib/*.c")
     if is_mode("release") and get_config("with_breakpad") then
         if is_plat("windows") then
-            add_cxflags("/Zi", "/FS", "/Fd$(buildir)\\$(plat)\\$(arch)\\release\\aria2.pdb")
-            add_ldflags("/DEBUG", "/PDB:$(buildir)\\$(plat)\\$(arch)\\release\\aria2.pdb")
+            add_cxflags("/Zi", "/FS", "/Fd$(builddir)\\$(plat)\\$(arch)\\release\\aria2.pdb")
+            add_ldflags("/DEBUG", "/PDB:$(builddir)\\$(plat)\\$(arch)\\release\\aria2.pdb")
         else
             add_cxflags("-g")
         end
@@ -371,7 +374,7 @@ rule("mo")
     on_buildcmd_file(function (target, batchcmds, sourcefile, opt)
         import("lib.detect.find_tool")
         local msgfmt = assert(find_tool("msgfmt"), "msgfmt not found!")
-        local targetdir = path.join(string.vformat("$(buildir)/locale"), path.basename(sourcefile), "LC_MESSAGES")
+        local targetdir = path.join(string.vformat("$(builddir)/locale"), path.basename(sourcefile), "LC_MESSAGES")
         batchcmds:mkdir(targetdir)
         local mo = path.join(targetdir, "aria2-zero.mo")
         batchcmds:show_progress(opt.progress, "${color.build.object}compiling %s", sourcefile)
@@ -383,8 +386,8 @@ rule_end()
 target("aria2c")
     if is_mode("release") and get_config("with_breakpad") then
         if is_plat("windows") then
-            add_cxflags("/Zi", "/FS", "/Fd$(buildir)\\$(plat)\\$(arch)\\release\\aria2c.pdb")
-            add_ldflags("/DEBUG", "/PDB:$(buildir)\\$(plat)\\$(arch)\\release\\aria2c.pdb")
+            add_cxflags("/Zi", "/FS", "/Fd$(builddir)\\$(plat)\\$(arch)\\release\\aria2c.pdb")
+            add_ldflags("/DEBUG", "/PDB:$(builddir)\\$(plat)\\$(arch)\\release\\aria2c.pdb")
         else
             add_cxflags("-g")
         end
