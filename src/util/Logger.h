@@ -45,7 +45,7 @@ namespace aria2 {
 class Exception;
 class OutputFile;
 
-class Logger {
+class ARIA2_EXTERN Logger {
 public:
   enum LEVEL {
     A2_DEBUG = 1 << 0,

@@ -35,6 +35,30 @@
 #ifndef D_COMMON_H
 #define D_COMMON_H
 
+#ifndef ARIA2_EXTERN
+#if defined(_WIN32) || defined(__CYGWIN__) || defined(__SYMBIAN32__)
+#  ifdef ARIA2_STATICLIB
+#    define ARIA2_EXTERN
+#  else
+#    ifdef ARIA2_BUILDING_LIBRARY
+#      define ARIA2_EXTERN __declspec(dllexport)
+#    else
+#      define ARIA2_EXTERN __declspec(dllimport)
+#    endif
+#  endif
+#else
+#  if defined(__GNUC__) && __GNUC__ >= 4
+#    define ARIA2_EXTERN __attribute__((visibility("default")))
+#  elif defined(__INTEL_COMPILER) && __INTEL_COMPILER >= 900
+#    define ARIA2_EXTERN __attribute__((visibility("default")))
+#  elif defined(__SUNPRO_C)
+#    define ARIA2_EXTERN _global
+#  else
+#    define ARIA2_EXTERN
+#  endif
+#endif
+#endif // ARIA2_EXTERN
+
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif

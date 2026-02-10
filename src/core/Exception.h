@@ -44,7 +44,7 @@
 
 namespace aria2 {
 
-class Exception : public std::exception {
+class ARIA2_EXTERN Exception : public std::exception {
 private:
   const char* file_;
 

@@ -52,7 +52,7 @@ class Option;
 class UriListParser;
 class DownloadEngine;
 
-class MultiUrlRequestInfo {
+class ARIA2_EXTERN MultiUrlRequestInfo {
 private:
   std::vector<std::shared_ptr<RequestGroup>> requestGroups_;
 

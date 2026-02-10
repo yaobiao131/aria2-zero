@@ -44,7 +44,7 @@
 
 namespace aria2 {
 
-class LogFactory {
+class ARIA2_EXTERN LogFactory {
 private:
   static std::string filename_;
   static std::shared_ptr<Logger> logger_;

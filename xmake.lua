@@ -236,8 +236,14 @@ local sourceDirs = {
 
 includes("merge_staticlib.lua")
 
+
 target("aria2")
     set_kind("$(kind)")
+    if is_kind("static") then
+        add_defines("ARIA2_STATICLIB")
+    else
+        add_defines("ARIA2_BUILDING_LIBRARY")
+    end
     add_rules("merge_staticlib")
     add_files("deps/wslay/lib/*.c")
     if is_mode("release") and get_config("with_breakpad") then
@@ -384,6 +390,9 @@ rule("mo")
 rule_end()
 
 target("aria2c")
+    if is_kind("static") then
+        add_defines("ARIA2_STATICLIB")
+    end
     if is_mode("release") and get_config("with_breakpad") then
         if is_plat("windows") then
             add_cxflags("/Zi", "/FS", "/Fd$(builddir)\\$(plat)\\$(arch)\\release\\aria2c.pdb")
@@ -401,6 +410,7 @@ target("aria2c")
     end
     if is_plat("windows", "mingw") then
         add_files("src/resource.rc")
+        add_syslinks("shell32")
     end
     add_rules("mo")
     add_files("po/*.po")

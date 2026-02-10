@@ -103,7 +103,7 @@ std::wstring utf8ToWChar(const std::string& src);
 
 std::wstring utf8ToWChar(const char* str);
 
-std::string wCharToUtf8(const std::wstring& wsrc);
+ARIA2_EXTERN std::string wCharToUtf8(const std::wstring& wsrc);
 
 // replace any backslash '\' in |src| with '/' and returns it.
 std::string toForwardSlash(const std::string& src);

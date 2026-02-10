@@ -15,11 +15,16 @@ rule("merge_staticlib")
                 end
             end
         end
+        -- 支持合并依赖的静态库
+        for _, dep in ipairs(target:orderdeps()) do
+            if dep:is_static() then
+                library_set[dep:targetfile()] = 1
+            end
+        end
         local libraryfiles = table.keys(library_set)
         if #libraryfiles > 0 then
             table.insert(libraryfiles, target:targetfile())
         end
-        -- print("Merging static libraries: ", table.concat(libraryfiles, ", "))
         depend.on_changed(function ()
             progress.show(opt.progress, "${color.build.target}merge_staticlib.$(mode) %s", path.filename(target:targetfile()))
             if #libraryfiles > 0 then
@@ -30,4 +35,3 @@ rule("merge_staticlib")
             end
         end, {dependfile = target:dependfile(target:targetfile() .. ".merge_staticlib"), files = libraryfiles, changed = target:is_rebuilt()})
     end)
-

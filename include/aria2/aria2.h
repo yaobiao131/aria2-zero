@@ -42,6 +42,7 @@
 #include <string>
 #include <vector>
 
+#ifndef ARIA2_EXTERN
 #if defined(_WIN32) || defined(__CYGWIN__) || defined(__SYMBIAN32__)
 #  ifdef ARIA2_STATICLIB
 #    define ARIA2_EXTERN
@@ -63,6 +64,7 @@
 #    define ARIA2_EXTERN
 #  endif
 #endif
+#endif // ARIA2_EXTERN
 
 // Libaria2: The aim of this library is provide same functionality
 // available in RPC methods. The function signatures are not

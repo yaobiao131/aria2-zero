@@ -45,7 +45,7 @@ namespace aria2 {
 
 class MultiUrlRequestInfo;
 
-struct Context {
+struct ARIA2_EXTERN Context {
   // Set the |standalone| false if the context is created via libaria2
   // API. The |argc| and |argv| is expected to the command-line
   // arguments, which will be passed to getopt_long(3) in the end.

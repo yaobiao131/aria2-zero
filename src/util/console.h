@@ -49,13 +49,13 @@ namespace global {
 
 // Initialize console output facility. If the |suppress| is true, all
 // output sent to the console objects are discarded.
-void initConsole(bool suppress);
+ARIA2_EXTERN void initConsole(bool suppress);
 
 // stdout is redirected to stderr.
-void redirectStdoutToStderr();
+ARIA2_EXTERN void redirectStdoutToStderr();
 
-const Console& cout();
-const Console& cerr();
+ARIA2_EXTERN const Console& cout();
+ARIA2_EXTERN const Console& cerr();
 
 } // namespace global
 

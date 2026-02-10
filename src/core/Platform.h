@@ -46,7 +46,7 @@
 
 namespace aria2 {
 
-class Platform {
+class ARIA2_EXTERN Platform {
 private:
   static bool initialized_;
 
